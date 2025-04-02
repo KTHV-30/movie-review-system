@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Search Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4">Search Result</h1>
+        <div th:if="${movie != null}">
+            <h2>Movie Details</h2>
+            <p>ID: <span th:text="${movie.id}"></span></p>
+            <p>Title: <span th:text="${movie.title}"></span></p>
+            <p>Genre: <span th:text="${movie.genre}"></span></p>
+            <p>Release Date: <span th:text="${movie.releaseDate}"></span></p>
+            <p>Director: <span th:text="${movie.director}"></span></p>
+            <p>Language: <span th:text="${movie.language}"></span></p>
+            <p>Rating: <span th:text="${movie.rating}"></span></p>
+        </div>
+        <div th:if="${movie == null}">
+            <p th:text="${message}"></p>
+        </div>
+        <a th:href="@{/}" class="btn btn-secondary mt-3">Back to List</a>
+    </div>
+</body>
+
+</html>

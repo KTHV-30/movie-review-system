@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Review System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4">Movies List</h1>
+        <a th:href="@{/add}" class="btn btn-primary mb-3">Add Movie</a>
+        <form th:action="@{/search}" method="get" class="form-inline mb-3">
+            <input type="number" name="id" class="form-control mr-2" placeholder="Search by ID" />
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Genre</th>
+                    <th>Release Date</th>
+                    <th>Director</th>
+                    <th>Language</th>
+                    <th>Rating</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="movie : ${movies}">
+                    <td th:text="${movie.id}"></td>
+                    <td th:text="${movie.title}"></td>
+                    <td th:text="${movie.genre}"></td>
+                    <td th:text="${movie.releaseDate}"></td>
+                    <td th:text="${movie.director}"></td>
+                    <td th:text="${movie.language}"></td>
+                    <td th:text="${movie.rating}"></td>
+                    <td>
+                        <a th:href="@{/update/{id}(id=${movie.id})}" class="btn btn-warning btn-sm">Update</a>
+                        <a th:href="@{/delete/{id}(id=${movie.id})}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
