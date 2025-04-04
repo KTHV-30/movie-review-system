@@ -19,7 +19,6 @@
             <p>Release Date: <span th:text="${movie.releaseDate}"></span></p>
             <p>Director: <span th:text="${movie.director}"></span></p>
             <p>Language: <span th:text="${movie.language}"></span></p>
-            <p>Rating: <span th:text="${movie.rating}"></span></p>
         </div>
         <div th:if="${movie == null}">
             <p th:text="${message}"></p>
