@@ -9,7 +9,6 @@ public class Movie {
     private Date releaseDate;
     private String director;
     private String language;
-    private double rating;
 
     public int getId() {
         return id;
@@ -57,13 +56,5 @@ public class Movie {
 
     public void setLanguage(String language) {
         this.language = language;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 }
