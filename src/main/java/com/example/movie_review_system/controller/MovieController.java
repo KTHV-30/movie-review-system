@@ -31,8 +31,8 @@ public class MovieController {
         List<Movie> movies = new ArrayList<>();
         String sql = "SELECT * FROM movies";
         try (Connection conn = getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Movie movie = new Movie();
                 movie.setId(rs.getInt("id"));
@@ -41,7 +41,6 @@ public class MovieController {
                 movie.setReleaseDate(rs.getDate("release_date"));
                 movie.setDirector(rs.getString("director"));
                 movie.setLanguage(rs.getString("language"));
-                movie.setRating(rs.getDouble("rating"));
                 movies.add(movie);
             }
         }
@@ -55,29 +54,27 @@ public class MovieController {
 
     @PostMapping("/add")
     public String addMovie(@RequestParam String title, @RequestParam String genre,
-            @RequestParam String releaseDate, @RequestParam String director,
-            @RequestParam String language, @RequestParam double rating) throws SQLException {
+                           @RequestParam String releaseDate, @RequestParam String director,
+                           @RequestParam String language) throws SQLException {
         Movie movie = new Movie();
         movie.setTitle(title);
         movie.setGenre(genre);
         movie.setReleaseDate(Date.valueOf(releaseDate));
         movie.setDirector(director);
         movie.setLanguage(language);
-        movie.setRating(rating);
         insertMovie(movie);
         return "redirect:/";
     }
 
     private void insertMovie(Movie movie) throws SQLException {
-        String sql = "INSERT INTO movies (title, genre, release_date, director, language, rating) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO movies (title, genre, release_date, director, language) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, movie.getTitle());
             pstmt.setString(2, movie.getGenre());
             pstmt.setDate(3, movie.getReleaseDate());
             pstmt.setString(4, movie.getDirector());
             pstmt.setString(5, movie.getLanguage());
-            pstmt.setDouble(6, movie.getRating());
             pstmt.executeUpdate();
         }
     }
@@ -91,7 +88,7 @@ public class MovieController {
     private void deleteMovieById(int id) throws SQLException {
         String sql = "DELETE FROM movies WHERE id = ?";
         try (Connection conn = getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         }
@@ -111,7 +108,7 @@ public class MovieController {
         Movie movie = null;
         String sql = "SELECT * FROM movies WHERE id = ?";
         try (Connection conn = getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -122,7 +119,6 @@ public class MovieController {
                     movie.setReleaseDate(rs.getDate("release_date"));
                     movie.setDirector(rs.getString("director"));
                     movie.setLanguage(rs.getString("language"));
-                    movie.setRating(rs.getDouble("rating"));
                 }
             }
         }
@@ -131,8 +127,8 @@ public class MovieController {
 
     @PostMapping("/update")
     public String updateMovie(@RequestParam int id, @RequestParam String title, @RequestParam String genre,
-            @RequestParam String releaseDate, @RequestParam String director,
-            @RequestParam String language, @RequestParam double rating) throws SQLException {
+                              @RequestParam String releaseDate, @RequestParam String director,
+                              @RequestParam String language) throws SQLException {
         Movie movie = new Movie();
         movie.setId(id);
         movie.setTitle(title);
@@ -140,22 +136,20 @@ public class MovieController {
         movie.setReleaseDate(Date.valueOf(releaseDate));
         movie.setDirector(director);
         movie.setLanguage(language);
-        movie.setRating(rating);
         updateMovie(movie);
         return "redirect:/";
     }
 
     private void updateMovie(Movie movie) throws SQLException {
-        String sql = "UPDATE movies SET title = ?, genre = ?, release_date = ?, director = ?, language = ?, rating = ? WHERE id = ?";
+        String sql = "UPDATE movies SET title = ?, genre = ?, release_date = ?, director = ?, language = ? WHERE id = ?";
         try (Connection conn = getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, movie.getTitle());
             pstmt.setString(2, movie.getGenre());
             pstmt.setDate(3, movie.getReleaseDate());
             pstmt.setString(4, movie.getDirector());
             pstmt.setString(5, movie.getLanguage());
-            pstmt.setDouble(6, movie.getRating());
-            pstmt.setInt(7, movie.getId());
+            pstmt.setInt(6, movie.getId());
             pstmt.executeUpdate();
         }
     }
