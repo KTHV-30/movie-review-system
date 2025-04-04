@@ -25,7 +25,6 @@
                     <th>Release Date</th>
                     <th>Director</th>
                     <th>Language</th>
-                    <th>Rating</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -37,7 +36,6 @@
                     <td th:text="${movie.releaseDate}"></td>
                     <td th:text="${movie.director}"></td>
                     <td th:text="${movie.language}"></td>
-                    <td th:text="${movie.rating}"></td>
                     <td>
                         <a th:href="@{/update/{id}(id=${movie.id})}" class="btn btn-warning btn-sm">Update</a>
                         <a th:href="@{/delete/{id}(id=${movie.id})}" class="btn btn-danger btn-sm">Delete</a>
