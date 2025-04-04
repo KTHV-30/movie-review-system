@@ -38,7 +38,7 @@
                     <td th:text="${movie.language}"></td>
                     <td>
                         <a th:href="@{/update/{id}(id=${movie.id})}" class="btn btn-warning btn-sm">Update</a>
-                        <a th:href="@{/delete/{id}(id=${movie.id})}" class="btn btn-danger btn-sm">Delete</a>
+                        <a th:href="@{/delete/{id}(id=${movie.id})}" onclick="return confirm('Are you sure you want to delete this movie?')" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
             </tbody>
