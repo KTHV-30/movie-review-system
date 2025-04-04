@@ -16,7 +16,7 @@ public class MovieController {
     private Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/movie_db";
         String username = "root";
-        String password = "anand9791";
+        String password = "Teja@345";
         return DriverManager.getConnection(url, username, password);
     }
 
